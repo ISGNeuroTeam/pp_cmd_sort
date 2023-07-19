@@ -6,7 +6,7 @@ def _sort(df: pd.DataFrame, field: list[str], ascending: bool) -> None:
     df.sort_values(field, ascending=ascending, inplace=True)
 
 
-DEFAULT_NUMBER = 100000
+DEFAULT_NUMBER = 10
 
 
 class SortCommand(BaseCommand):

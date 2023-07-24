@@ -46,6 +46,7 @@ class TestCommand(TestCase):
                               f"| sort '{j}' by {SAMPLE_HEAD[0][i]}"
                 result = capture(test_string)
                 r = j == "des"
+                # pylint: disable=cell-var-from-loop
                 sample = SAMPLE_HEAD + \
                     sorted(SAMPLE, key=lambda k: k[i], reverse=r)
                 sample = draw_nd(i, sample)

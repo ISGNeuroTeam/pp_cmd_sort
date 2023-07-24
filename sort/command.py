@@ -1,3 +1,4 @@
+"""Module for sorting DataFrames"""
 from pp_exec_env.base_command import BaseCommand, Syntax, pd
 from otlang.sdk.syntax import Positional, Keyword, OTLType
 
@@ -10,9 +11,12 @@ DEFAULT_NUMBER = 10
 
 
 class SortCommand(BaseCommand):
+    """To use as pp command, do:
+    sort <'asc'|'des'|'+'|'-'> by <sort_criteria_0> by
+    <sort_criteria_1> by ... [count=n]"""
     syntax = Syntax(
         [
-            Positional("clause", required=False, otl_type=OTLType.STRING),
+            Positional("clause", required=True, otl_type=OTLType.STRING),
             Keyword("count", required=False, otl_type=OTLType.INTEGER)
         ],
     )
@@ -20,9 +24,9 @@ class SortCommand(BaseCommand):
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
         clause = self.get_arg("clause").group_by
         direction = self.get_arg("clause").value
-        if direction == '+' or 'asc':
+        if direction in ["+", "asc"]:
             _sort(df, field=clause, ascending=True)
-        elif direction == '-' or 'des':
+        elif direction in ["-", "des"]:
             _sort(df, field=clause, ascending=False)
         else:
             raise TypeError
